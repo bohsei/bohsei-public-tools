@@ -1,0 +1,57 @@
+name: Publish MD-Net 2026 test release
+
+on:
+  push:
+    paths:
+      - '.github/workflows/mdnet-2026-test-release.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify exact reviewed update file
+        shell: bash
+        run: |
+          set -euo pipefail
+          file='mdnet/2026-ssl-update/MDNet_2026_AllInOne.cmd'
+          test -s "$file"
+          actual="$(git hash-object "$file")"
+          expected='e0d65461770c56654e1cecb75071c91d1ceff245'
+          if [[ "$actual" != "$expected" ]]; then
+            echo "Unexpected update file SHA (git blob): $actual" >&2
+            exit 1
+          fi
+          echo "Reviewed update file verified: $actual"
+      - name: Publish administrator-only prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/mdnet-release-notes.md <<'NOTES'
+          # MD-Net 2026年 SSL証明書更新（管理者テスト用）
+
+          **まだ事務員へ配布しないでください。**
+
+          - 下の Assets から `MDNet_2026_AllInOne.cmd` をクリックするとダウンロードできます。
+          - NEC配布の `cacerts` を内蔵しているため、ZIP展開・別途ファイル指定は不要です。
+          - 事前にMD-Netの発注処理と予約・定期送受信をすべて停止してください。
+          - 実行後はNEC指定のテスト接続を行い、**必ず本番URLに戻して本番接続テストを実施**してください。
+          - 「更新成功」はファイル置換が成功したことを示し、発注通信の成功は保証しません。
+          - Windows警告や業務端末のセキュリティ設定を無理に回避しないでください。
+
+          初回テスト成功後、全員配布用の正式版を別途作成します。
+          NOTES
+          gh release create 'mdnet-ssl-2026-rc1' \
+            'mdnet/2026-ssl-update/MDNet_2026_AllInOne.cmd#MDNet_2026_AllInOne.cmd' \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title 'MD-Net 2026 SSL証明書更新（管理者テスト版）' \
+            --notes-file /tmp/mdnet-release-notes.md \
+            --prerelease
