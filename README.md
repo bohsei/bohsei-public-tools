@@ -4,7 +4,7 @@
 
 ## MD-Net 2026年 SSL証明書更新
 
-**[▶ 更新ファイルをダウンロード（全部入り・1ファイル）](https://github.com/bohsei/bohsei-public-tools/raw/refs/heads/main/mdnet/2026-ssl-update/MDNet_2026_AllInOne.cmd)**
+**[▶ 更新ファイルを開く（GitHub画面から下向き矢印で保存）](https://github.com/bohsei/bohsei-public-tools/blob/main/mdnet/2026-ssl-update/MDNet_2026_AllInOne.cmd)**
 
 [初回試験と事務員向け手順](./mdnet/2026-ssl-update/README.md)
 
