@@ -4,14 +4,14 @@
 
 ## 更新ファイルはこれ1つ
 
-**[▶ 更新ファイルをダウンロード：MDNet_2026_AllInOne.cmd](https://github.com/bohsei/bohsei-public-tools/raw/refs/heads/main/mdnet/2026-ssl-update/MDNet_2026_AllInOne.cmd)**
+**[▶ 更新ファイルをダウンロード：MDNet_2026_AllInOne.cmd](https://github.com/bohsei/bohsei-public-tools/blob/main/mdnet/2026-ssl-update/MDNet_2026_AllInOne.cmd)**
 
-ダウンロードできないときは [GitHub上のファイルを開く](./MDNet_2026_AllInOne.cmd) → 画面右上の **Download raw file** を選択してください。
+上のリンクでGitHubのファイル画面を開き、**右上の下向き矢印（Download raw file）**を押して保存してください。画面にプログラムの文字が表示されても、実行されたわけではありません。
 
 ## 操作方法（事務員向け）
 
 1. **MD-Netでの発注を終わらせて、画面をすべて閉じる。** 定期送受信がある場合はシステム管理室で停止確認。
-2. 上の「更新ファイルをダウンロード」を押す。**ZIPの展開、証明書ファイルの準備は不要。**
+2. 上の「更新ファイルをダウンロード」を開き、GitHubの**下向き矢印**を押して保存する。**ZIPの展開、証明書ファイルの準備は不要。**
 3. ダウンロードした **MDNet_2026_AllInOne.cmd** を**ダブルクリック**する。
 4. 画面が出たら内容を読み、更新する場合は **「はい」** を押す。
 5. **「証明書の更新が完了しました」** または **「更新済みです」** と表示されたら画面を閉じ、システム管理室に報告する。
