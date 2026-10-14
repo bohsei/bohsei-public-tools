@@ -135,7 +135,7 @@ function Install {
         if ((HashOf $stage) -ne $Expected) { throw '置換用ファイルの検証に失敗しました。' }
         EnsureIdle
         if ((HashOf $Target) -ne $before) { throw '操作中に元のcacertsが変更されました。安全のため中止しました。' }
-        [IO.File]::Replace($stage,$Target,$null)
+        [IO.File]::Replace($stage,$Target,($bak + '.swap'))
         if ((HashOf $Target) -ne $Expected) { throw '置換後のSHA-256が一致しません。' }
         Write-Host "バックアップ: $bak"
         Write-Host '証明書ファイルの更新が成功しました。' -ForegroundColor Green
@@ -152,7 +152,7 @@ function Install {
             if ((Test-Path -LiteralPath $bak -PathType Leaf) -and (HashOf $bak) -eq $before -and
                 (Test-Path -LiteralPath $Target -PathType Leaf) -and (HashOf $Target) -ne $before) {
                 Copy-Item -LiteralPath $bak -Destination $restore -ErrorAction Stop
-                [IO.File]::Replace($restore,$Target,$null)
+                [IO.File]::Replace($restore,$Target,($bak + '.restoreSwap'))
                 if ((HashOf $Target) -ne $before) { throw '復元後のファイルが元と一致しません。' }
                 $recovery = '更新前の状態への自動復旧に成功しました。'
             }
